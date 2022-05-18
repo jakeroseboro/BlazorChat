@@ -1,5 +1,6 @@
+using BlazorChat.Server;
 using BlazorChat.Server.Data;
-using BlazorChat.Server.Models;
+using BlazorChat.Shared;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -53,6 +55,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+app.MapHub<SignalRHub>("/signalRHub");
 app.MapFallbackToFile("index.html");
 
 app.Run();
